@@ -1,0 +1,1 @@
+find . -type f -exec identify \{\} \; | awk '{split($3,a,"x"); if (a[1] < 151 && a[2] < 151) print $1}' | xargs rm

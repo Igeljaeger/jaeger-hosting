@@ -1,0 +1,121 @@
+---
+#Nginx
+- name: Update repositories cache and install "nginx" package
+  apt:
+    name: nginx
+    update_cache: yes
+
+- name: Copy nginx templates
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: 0644
+    owner: "root"
+    group: "root"
+  with_items:
+    - { src: "default.nginx", dest: "{{ nginx-sites }}/default.nginx"}
+    - { src: "insta", dest: "{{ nginx-sites }}/insta"}
+    - { src: "matrix", dest: "{{ nginx-sites }}/matrix"}
+    - { src: "navidrome", dest: "{{ nginx-sites }}/navidrome"}
+    - { src: "reden", dest: "{{ nginx-sites }}/reden"}
+    - { src: "searx", dest: "{{ nginx-sites }}/searx"}
+    - { src: "stickers", dest: "{{ nginx-sites }}/stickers"}
+
+
+#Static Websites
+#homepage
+- name: Create Stickers Data Folder
+  file:
+    path: "{{ homepage-path }}"
+    state: directory
+
+- name: Copy Stickers Directory to target
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - { src: "igel.jaeger.website", dest: "{{ homepage-path }}"}
+
+- name: Recursively change ownership of a Stickers directory
+  ansible.builtin.file:
+    path: "{{ homepage-path }}"
+    state: directory
+    recurse: yes
+    owner: "{{ user }}"
+    group: "{{ group }}"
+
+#Stickers
+- name: Create Stickers Data Folder
+  file:
+    path: "{{ homepage-path }}"
+    state: directory
+
+- name: Copy Stickers Directory to target
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - { src: "stickerpicker", dest: "{{ stickers-path }}"}
+
+- name: Recursively change ownership of a Stickers directory
+  ansible.builtin.file:
+    path: "{{ stickers-path }}"
+    state: directory
+    recurse: yes
+    owner: "{{ user }}"
+    group: "{{ group }}"
+
+#Docker
+- name: Install the package "docker.io"
+  apt:
+    name: docker.io
+    state: present
+
+- name: Install the package "docker-compose"
+  apt:
+    name: docker-compose
+    state: present
+
+- name: Enable docker service
+  ansible.builtin.service:
+    name: docker
+    enabled: yes
+
+- name: Start docker service, if not started
+  ansible.builtin.service:
+    name: docker
+    state: started
+
+- name: Setup Bibliogram Docker
+  docker_container:
+    name: bibliogram
+    image: cloudrac3r/bibliogram
+    restart: unless-stopped
+    ports:
+      - "10407:10407"
+    volumes:
+      - "db:/app/db"
+
+- name: Create Navidrome Data Folder
+  file:
+    path: "/home/{{ user }}/navidrome/"
+    state: directory
+
+- name: Create Navidrome Music Folder
+  file:
+    path: "/home/{{ user }}/navidrome/music"
+    state: directory
+
+- name: Setup Navidrome Docker
+  docker_container:
+    name: navidrome
+    image: deluan/navidrome:latest
+    user: 1000:1000
+    ports:
+      - "4533:4533"
+    restart: unless-stopped
+    ND_BASEURL: "music.{{ domain }}"
+    volumes:
+      - "/home/{{ user }}/navidrome:/data"
+      - "/home/{{ user }}/navidrome/music:/music:ro"
+

@@ -1,0 +1,5 @@
+nano ~/synapse/env/lib/python3.7/site-packages/synapse/http/client.py
+
+self.user_agent = "curl/7.59.0"
+
+restart matrix

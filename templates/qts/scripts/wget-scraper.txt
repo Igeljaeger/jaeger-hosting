@@ -1,0 +1,1 @@
+wget --page-requisites --convert-links --adjust-extension --mirror --span-hosts --domains=saladpuncher.saladpuncher.netdna-cdn.com,www.saladpuncher.com,saladpuncher.com "http://www.saladpuncher.com/2014/12/wpb-net-2014-08-no-173-miwako-kakei/"

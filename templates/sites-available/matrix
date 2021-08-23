@@ -1,0 +1,33 @@
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+
+    # For the federation port
+    listen 8448 ssl http2;
+    listen [::]:8448 ssl http2;
+
+    server_name jaeger.website;
+
+        ssl_certificate /etc/letsencrypt/live/jaeger.website/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/jaeger.website/privkey.pem;
+
+location / {
+        rewrite ^/(.*)$ https://igel.jaeger.website/$1 redirect;
+    }
+
+    location ~* ^(\/_matrix|\/_synapse\/client) {
+        proxy_pass http://localhost:8008;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header Host $host;
+	
+        # Nginx by default only allows file uploads up to 1M in size
+        # Increase client_max_body_size to match max_upload_size defined in homeserver.yaml
+        client_max_body_size 50M;
+    }
+location /.well-known/matrix/server {
+      default_type application/json;
+      return 200 '{ "m.server": "jaeger.website:443" }';
+   }
+
+}

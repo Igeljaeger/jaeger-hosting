@@ -1,0 +1,117 @@
+#Konfiguration fuer den igels suesse fediverse roboter
+#Vorraussetzungen: toot, instagram-scraper und gallery-dl. Installiere diese wie du willst. pip3 sollte gehn.
+#Logge dich in toot ein und benutze mit dem selben linux nutzer auch fuer den cron befehl.
+#ln -s alle bilddateien. In meinem fall waren es meist jpg. ~/gallery-dl/girls/maedchen-name/*jpg sind ALLES symbolische systemverknuepfungen. 
+#In diesem "girls" ordner sind dann alle verknuepfungen drinnen die man fuer die toot pfostierungen braucht. Alles schoen geordnet un so.
+#Quellen:
+#instagram
+20 0 * * * f="$(cat ~/pass)";~/.local/bin/instagram-scraper hinapo_2 -d ~/gallery-dl/instagram/hinapo_2 -t image --latest -q  -u igeljaeger -p $f
+30 0 * * * f="$(cat ~/pass)";~/.local/bin/instagram-scraper sherry_cos -d ~/gallery-dl/instagram/sherry_cos -t image --latest -q  -u igeljaeger -p $f
+40 0 * * * f="$(cat ~/pass)";~/.local/bin/instagram-scraper hoshina_mizuki -d ~/gallery-dl/instagram/hoshina_mizuki -t image --latest -q  -u igeljaeger -p $f
+0 1 * * *  f="$(cat ~/pass)";~/.local/bin/instagram-scraper shibukaho -d ~/gallery-dl/instagram/shibukaho -t image --latest -q  -u igeljaeger -p $f
+0 2 * * *  f="$(cat ~/pass)";~/.local/bin/instagram-scraper yua_mikami -d ~/gallery-dl/instagram/yua_mikami -t image --latest -q  -u igeljaeger -p $f
+0 3 * * *  f="$(cat ~/pass)";~/.local/bin/instagram-scraper fuminasuzuki -d ~/gallery-dl/instagram/fuminasuzuki -t image --latest -q  -u igeljaeger -p $f
+0 4 * * *  f="$(cat ~/pass)";~/.local/bin/instagram-scraper umi_portrait -d ~/gallery-dl/instagram/umi_portrait -t image --latest -q  -u igeljaeger -p $f
+0 5 * * *  f="$(cat ~/pass)";~/.local/bin/instagram-scraper miyuuinamori -d ~/gallery-dl/instagram/miyuuinamori -t image --latest -q  -u igeljaeger -p $f
+0 6 * * *  f="$(cat ~/pass)";~/.local/bin/instagram-scraper aoi_hnta -d ~/gallery-dl/instagram/aoi_hnta -t image --latest -q  -u igeljaeger -p $f
+0 7 * * *  f="$(cat ~/pass)";~/.local/bin/instagram-scraper kurita__emi -d ~/gallery-dl/instagram/kurita__emi -t image --latest -q  -u igeljaeger -p $f
+0 10 * * * f="$(cat ~/pass)";~/.local/bin/instagram-scraper moe_five -d ~/gallery-dl/instagram/moe_five -t image --latest -q  -u igeljaeger -p $f
+0 11 * * * f="$(cat ~/pass)";~/.local/bin/instagram-scraper sakura.gun -d ~/gallery-dl/instagram/sakura.gun -t image --latest -q  -u igeljaeger -p $f
+0 12 * * * f="$(cat ~/pass)";~/.local/bin/instagram-scraper c3eru -d ~/gallery-dl/instagram/c3eru -t image --latest -q  -u igeljaeger -p $f
+0 13 * * * f="$(cat ~/pass)";~/.local/bin/instagram-scraper marinanagasawa1008 -d ~/gallery-dl/instagram/marinanagasawa1008 -t image --latest -q  -u igeljaeger -p $f
+0 16 * * * f="$(cat ~/pass)";~/.local/bin/instagram-scraper enakorin -d ~/gallery-dl/instagram/enakorin -t image --latest -q  -u igeljaeger -p $f
+0 17 * * * f="$(cat ~/pass)";~/.local/bin/instagram-scraper koi_liyuu -d ~/gallery-dl/instagram/koi_liyuu -t image --latest -q  -u igeljaeger -p $f
+0 19 * * * f="$(cat ~/pass)";~/.local/bin/instagram-scraper iocos69 -d ~/gallery-dl/instagram/iocos69 -t image --latest -q  -u igeljaeger -p $f
+0 20 * * * f="$(cat ~/pass)";~/.local/bin/instagram-scraper creamcandy123 -d ~/gallery-dl/instagram/creamcandy123 -t image --latest -q  -u igeljaeger -p $f
+0 22 * * * f="$(cat ~/pass)";~/.local/bin/instagram-scraper nanoka0707 -d ~/gallery-dl/instagram/nanoka0707 -t image --latest -q  -u igeljaeger -p $f
+0 23 * * * f="$(cat ~/pass)";~/.local/bin/instagram-scraper jun.amaki -d ~/gallery-dl/instagram/jun.amaki -t image --latest -q  -u igeljaeger -p $f
+0 8 * * * f="$(cat ~/pass)";~/.local/bin/instagram-scraper kurumipurarine -d ~/gallery-dl/instagram/kurumipurarine -t image --latest -q  -u igeljaeger -p $f
+0 9 * * * f="$(cat ~/pass)";~/.local/bin/instagram-scraper kurasaka_kururu -d ~/gallery-dl/instagram/kurasaka_kururu -t image --latest -q  -u igeljaeger -p $f
+30 9 * * * f="$(cat ~/pass)";~/.local/bin/instagram-scraper tingting214_new -d ~/gallery-dl/instagram/tingting214_new -t image --latest -q  -u igeljaeger -p $f
+30 10 * * * f="$(cat ~/pass)";~/.local/bin/instagram-scraper akiraitsuki_cos -d ~/gallery-dl/instagram/akiraitsuki_cos -t image --latest -q  -u igeljaeger -p $f
+30 11 * * * f="$(cat ~/pass)";~/.local/bin/instagram-scraper shimotsuki18 -d ~/gallery-dl/instagram/shimotsuki18 -t image --latest -q  -u igeljaeger -p $f
+30 12 * * * f="$(cat ~/pass)";~/.local/bin/instagram-scraper kofan_0331 -d ~/gallery-dl/instagram/kofan_0331 -t image --latest -q  -u igeljaeger -p $f
+30 13 * * * f="$(cat ~/pass)";~/.local/bin/instagram-scraper shiragayanko66 -d ~/gallery-dl/instagram/shiragayanko66 -t image -u igeljaeger -p $f
+#twitter
+0 3 * * * ~/.local/bin/gallery-dl https://twitter.com/sherryken777 --download-archive ~/archiveDocs/sherryken777.txt
+0 2 * * * ~/.local/bin/gallery-dl https://twitter.com/chanbaekkailu1  --download-archive ~/archiveDocs/chanbaekkailu1.txt
+0 1 * * * ~/.local/bin/gallery-dl https://twitter.com/hoshina_mizuki/ --download-archive ~/archiveDocs/hoshina_mizukiTWIT.txt
+0 14 * * * ~/.local/bin/gallery-dl https://twitter.com/nagasawa_marina --download-archive ~/archiveDocs/marinatwitter.txt
+0 15 * * *  ~/.local/bin/gallery-dl https://twitter.com/enako_cos --download-archive ~/archiveDocs/enakotwitter.txt
+0 18 * * *  ~/.local/bin/gallery-dl https://twitter.com/Liyu0109 --download-archive ~/archiveDocs/liyuutwitter.txt
+0 21 * * * ~/.local/bin/gallery-dl https://twitter.com/mono_025/ --download-archive ~/archiveDocs/mono_025twitter.txt
+0 23 * * * ~/.local/bin/gallery-dl https://twitter.com/sinonome_umi --download-archive ~/archiveDocs/sinonome_umitwitter.txt
+30 23 * * * ~/.local/bin/gallery-dl https://twitter.com/mqh0re  --download-archive ~/archiveDocs/mqh0re.txt
+#lineblog
+0 8 * * * ~/.local/bin/gallery-dl https://lineblog.me/itsukiakira/ --download-archive ~/archiveDocs/itsukiakiralineblog.txt
+
+#Zufallsquellen sammeln und der pfostierbefehl:
+*/7 * * * * f="$(shuf -n 1 ~/pathFiles/qts.txt)";toot post "🦔🔫 Süßzufall, Quelle: $(echo "$f" | cut -d / -f 7)" --media "$f"
+0 4 * * * find ~/gallery-dl/girls/ -type l > ~/pathFiles/qts.txt
+#alte version: 0 4 * * *  find ~/gallery-dl/girls/ -type f \( -iname '*jpeg' -o -iname '*jpg' -o -iname '*png' \) > ~/pathFiles/qts.txt
+
+#Scheinwerfer befehle:
+#hoshina_mizuki
+0 4 * * * find ~/gallery-dl/girls/hoshina_mizuki/ -type l > ~/pathFiles/hoshina_mizukiPATH.txt
+40 */1 * * * toot post "🦔🔫 Scheinwerfer: insta.jaeger.website/u/hoshina_mizuki" --media "$(shuf -n 1 ~/pathFiles/hoshina_mizukiPATH.txt)"
+#enako
+0 4 * * *  find ~/gallery-dl/girls/enakorin/ -type l > ~/pathFiles/enakoPATH.txt
+30 */1 * * * toot post "🦔🔫 Scheinwerfer: insta.jaeger.website/u/enakorin" --media "$(shuf -n 1 ~/pathFiles/enakoPATH.txt)"
+#marina nagasawa
+0 4 * * *   find ~/gallery-dl/girls/marinanagasawa1008 -type l > ~/pathFiles/marinaPATH.txt
+20 */2 * * * toot post "🦔🔫 Scheinwerfer: insta.jaeger.website/u/marinanagasawa1008" --media "$(shuf -n 1 ~/pathFiles/marinaPATH.txt)"
+#liyuu
+0 4 * * *   find ~/gallery-dl/girls/koi_liyuu -type l > ~/pathFiles/liyuuPATH.txt
+10 */1 * * * toot post "🦔🔫 Scheinwerfer: insta.jaeger.website/u/koi_liyuu" --media "$(shuf -n 1 ~/pathFiles/liyuuPATH.txt)"
+#sherry_cos
+0 4 * * *   find ~/gallery-dl/girls/sherry_cos -type l > ~/pathFiles/sherry_cosPATH.txt
+*/60 * * * * toot post "🦔🔫 Scheinwerfer: insta.jaeger.website/u/sherry_cos" --media "$(shuf -n 1 ~/pathFiles/sherry_cosPATH.txt)"
+#Ai Shinozaki
+50 */1 * * * toot post "🦔🔫 Scheinwerfer: insta.jaeger.website/u/shinopp._.ai" --media "$(shuf -n 1 ~/pathFiles/ai.txt)"
+#find ~/gallery-dl/AiShinozaki/ -type f \( -iname '*jpeg' -o -iname '*jpg' -o -iname '*png' -o -iname '*webm' \) > ~/pathFiles/ai.txt
+
+#Verknuepfungsbefehle
+#0 3 * * * ln -s ~/gallery-dl/manual/mizuki_hoshina/*.jpg ~/gallery-dl/girls/mizuki_hoshina
+0 3 * * * ln -s ~/gallery-dl/twitter/mqh0re/*.jpg ~/gallery-dl/girls/mqh0re
+0 3 * * * ln -s ~/gallery-dl/twitter/enako_cos/*.jpg ~/gallery-dl/girls/enakorin
+0 3 * * * ln -s ~/gallery-dl/twitter/hoshina_mizuki/*jpg ~/gallery-dl/girls/hoshina_mizuki
+0 3 * * * ln -s ~/gallery-dl/twitter/Liyu0109/*jpg ~/gallery-dl/girls/koi_liyuu
+0 3 * * * ln -s ~/gallery-dl/twitter/nagasawa_marina/*jpg ~/gallery-dl/girls/marinanagasawa1008
+0 3 * * * ln -s ~/gallery-dl/twitter/iocos69/*jpg ~/gallery-dl/girls/iocos69
+0 3 * * * ln -s ~/gallery-dl/twitter/sinonome_umi/*jpg ~/gallery-dl/girls/umi_portrait
+0 3 * * * ln -s ~/gallery-dl/twitter/chanbaekkailu1/*.jpg ~/gallery-dl/girls/real__yami
+0 3 * * * ln -s ~/gallery-dl/twitter/sherryken777/*.jpg ~/gallery-dl/girls/sherry_cos
+0 3 * * * ln -s ~/gallery-dl/instagram/mizuki_hoshina/*.jpg ~/gallery-dl/girls/mizuki_hoshina/
+0 3 * * * ln -s ~/gallery-dl/instagram/enakorin/*.jpg ~/gallery-dl/girls/enakorin/
+0 3 * * * ln -s ~/gallery-dl/instagram/hoshina_mizuki/*.jpg ~/gallery-dl/girls/hoshina_mizuki/
+0 3 * * * ln -s ~/gallery-dl/instagram/koi_liyuu/*.jpg ~/gallery-dl/girls/koi_liyuu/
+0 3 * * * ln -s ~/gallery-dl/instagram/marinanagasawa1008/*.jpg ~/gallery-dl/girls/marinanagasawa1008/
+0 3 * * * ln -s ~/gallery-dl/instagram/iocos69/*.jpg ~/gallery-dl/girls/iocos69/
+0 3 * * * ln -s ~/gallery-dl/instagram/umi_portrait/*.jpg ~/gallery-dl/girls/umi_portrait/
+0 3 * * * ln -s ~/gallery-dl/instagram/sherry_cos/*.jpg ~/gallery-dl/girls/sherry_cos
+0 3 * * * ln -s ~/gallery-dl/instagram/shibukaho/*.jpg ~/gallery-dl/girls/shibukaho
+0 3 * * * ln -s ~/gallery-dl/instagram/yua_mikami/*.jpg ~/gallery-dl/girls/yua_mikami
+0 3 * * * ln -s ~/gallery-dl/instagram/fuminasuzuki/*.jpg ~/gallery-dl/girls/fuminasuzuki
+0 3 * * * ln -s ~/gallery-dl/instagram/miyuuinamori/*.jpg ~/gallery-dl/girls/miyuuinamori
+0 3 * * * ln -s ~/gallery-dl/instagram/aoi_hnta/*.jpg ~/gallery-dl/girls/aoi_hnta
+0 3 * * * ln -s ~/gallery-dl/instagram/kurita__emi/*.jpg ~/gallery-dl/girls/kurita__emi/
+0 3 * * * ln -s ~/gallery-dl/instagram/moe_five/*.jpg ~/gallery-dl/girls/moe_five/
+0 3 * * * ln -s ~/gallery-dl/instagram/sakura.gun/*.jpg ~/gallery-dl/girls/sakura.gun
+0 3 * * * ln -s ~/gallery-dl/instagram/c3eru/*.jpg ~/gallery-dl/girls/c3eru
+0 3 * * * ln -s ~/gallery-dl/instagram/creamcandy123/*.jpg ~/gallery-dl/girls/creamcandy123
+0 3 * * * ln -s ~/gallery-dl/instagram/nanoka0707/*.jpg ~/gallery-dl/girls/nanoka0707
+#0 3 * * * ln -s ~/gallery-dl/lineblog/itsukiakira/*.jpg ~/gallery-dl/girls/itsukiakira
+0 3 * * * ln -s ~/gallery-dl/instagram/jun.amaki/*.jpg ~/gallery-dl/girls/jun.amaki
+0 3 * * * ln -s ~/gallery-dl/instagram/kurumipurarine/*.jpg ~/gallery-dl/girls/kurumipurarine
+0 3 * * * ln -s ~/gallery-dl/instagram/kurasaka_kururu/*.jpg ~/gallery-dl/girls/kurasaka_kururu
+0 3 * * * ln -s ~/gallery-dl/instagram/tingting214_new/*.jpg ~/gallery-dl/girls/tingting214_new
+0 3 * * * ln -s ~/gallery-dl/instagram/akiraitsuki_cos/*.jpg ~/gallery-dl/girls/akiraitsuki_cos
+0 3 * * * ln -s ~/gallery-dl/instagram/shimotsuki18/*.jpg ~/gallery-dl/girls/shimotsuki18
+0 3 * * * ln -s ~/gallery-dl/instagram/kofan_0331/*.jpg ~/gallery-dl/girls/kofan_0331
+0 3 * * * ln -s ~/gallery-dl/instagram/shiragayanko66/*.jpg ~/gallery-dl/girls/shiragayanko66
+0 3 * * * ln -s ~/gallery-dl/instagram/hinapo_2/*.jpg ~/gallery-dl/girls/hinapo_2
+#crontab sicherheitskopie
+0 0 * * * crontab -l > ~/qtscrontab.backup
+#automated delete of broken links
+0 0 * * * find ~/gallery-dl/girls/ -xtype l -exec rm {} \;
+#bei weiteren fragen bitte kontakt mit mir: igel.jaeger.website

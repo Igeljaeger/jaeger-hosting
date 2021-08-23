@@ -1,0 +1,7 @@
+---
+user: "pi"
+group: "pi"
+domain: "jaeger.website"
+nginx-sites: "/etc/nginx/sites-available/"
+stickers-path: "/var/www/stickers/"
+homepage-path: "/var/www/igel.jaeger.website"
