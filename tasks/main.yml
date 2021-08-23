@@ -29,7 +29,7 @@
     path: "{{ homepage-path }}"
     state: directory
 
-- name: Clone a homepage repository
+- name: Clone homepage repository
   git:
     repo: https://github.com/Igeljaeger/igel.jaeger.website.git
     dest: "{{ homepage-path }}"
@@ -50,7 +50,7 @@
     path: "{{ stickers-path }}"
     state: directory
 
-- name: Clone a Stickerpicker repository
+- name: Clone Stickerpicker repository
   git:
     repo: https://github.com/Igeljaeger/stickerpicker.git
     dest: "{{ stickers-path }}"
