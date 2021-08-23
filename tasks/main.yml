@@ -24,19 +24,19 @@
 
 #Static Websites
 #homepage
-- name: Create Stickers Data Folder
+- name: Create homepage folder
   file:
     path: "{{ homepage-path }}"
     state: directory
 
-- name: Copy Stickers Directory to target
-  template:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-  with_items:
-    - { src: "igel.jaeger.website", dest: "{{ homepage-path }}"}
+- name: Clone a homepage repository
+  git:
+    repo: https://github.com/Igeljaeger/igel.jaeger.website.git
+    dest: "{{ homepage-path }}"
+    clone: yes
+    update: yes
 
-- name: Recursively change ownership of a Stickers directory
+- name: Recursively change ownership of a homepage directory
   ansible.builtin.file:
     path: "{{ homepage-path }}"
     state: directory
@@ -47,15 +47,15 @@
 #Stickers
 - name: Create Stickers Data Folder
   file:
-    path: "{{ homepage-path }}"
+    path: "{{ stickers-path }}"
     state: directory
 
-- name: Copy Stickers Directory to target
-  template:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-  with_items:
-    - { src: "stickerpicker", dest: "{{ stickers-path }}"}
+- name: Clone a Stickerpicker repository
+  git:
+    repo: https://github.com/Igeljaeger/stickerpicker.git
+    dest: "{{ stickers-path }}"
+    clone: yes
+    update: yes
 
 - name: Recursively change ownership of a Stickers directory
   ansible.builtin.file:
