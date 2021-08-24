@@ -1,0 +1,43 @@
+# https://jonnev.se/matrix-homeserver-with-docker/
+# https://adfinis.com/en/blog/how-to-set-up-your-own-matrix-org-homeserver-with-federation/
+# https://zerowidthjoiner.net/2020/03/20/setting-up-matrix-and-riot-with-docker
+# https://tech.davidfield.co.uk/setting-up-your-own-riot-im-server/
+# https://matrix.org/blog/2016/02/10/advanced-synapse-setup-with-lets-encrypt
+
+version: "3"
+services:
+
+  postgres:
+    image: postgres
+    restart: always
+    # I like to be able to use psql on the host to connect to the database
+    # for maintenance. If you already have a postgres running you should remove
+    # the 'ports' section and uncomment 'expose'
+    #expose:
+    #- 5432
+    ports:
+      # Adding 127.0.0.1 ensures the port isn't exposed ON the host
+      - "127.0.0.1:5432:5432"
+    volumes:
+     - ~/synapse/postgresql:/var/lib/postgresql/data
+    environment:
+     - POSTGRES_PASSWORD=
+     - POSTGRES_USER=synapse
+
+  synapse:
+    image: matrixdotorg/synapse
+    # Exposing 8008 (no TLS) on localhost means we can reverse proxy with nginx
+    # 8448 is for federation and should be exposed on host
+    # 3478 is for TURN (voip calls)
+    ports:
+     - "127.0.0.1:8008:8008"
+     #- "8448:8448"
+     #- "3478:3478"
+    volumes:
+     - ~/synapse:/data
+
+# Our docker network!
+networks:
+  default:
+    external:
+      name: matrix-network

@@ -120,5 +120,5 @@
     group: "{{ group }}"
   with_items:
     - { src: "navidrome-compose.yml.j2", dest: "{{ compose_folder }}/navidrome-compose.yml"}
-
+    - { src: "matrix-compose.yml.j2", dest: "{{ compose_folder }}/matrix-compose.yml"}
 #run docker-compose up -d in the respective paths (see above and in the vars file for reference)
