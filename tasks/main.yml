@@ -13,14 +13,13 @@
     owner: "root"
     group: "root"
   with_items:
-    - { src: "default.nginx", dest: "{{ nginx-sites }}/default.nginx"}
-    - { src: "insta", dest: "{{ nginx-sites }}/insta"}
-    - { src: "matrix", dest: "{{ nginx-sites }}/matrix"}
-    - { src: "navidrome", dest: "{{ nginx-sites }}/navidrome"}
-    - { src: "reden", dest: "{{ nginx-sites }}/reden"}
-    - { src: "searx", dest: "{{ nginx-sites }}/searx"}
-    - { src: "stickers", dest: "{{ nginx-sites }}/stickers"}
-
+    - { src: "default.j2", dest: "{{ nginx-sites }}/default.nginx"}
+    - { src: "insta.j2", dest: "{{ nginx-sites }}/insta.nginx"}
+    - { src: "matrix.j2", dest: "{{ nginx-sites }}/matrix.nginx"}
+    - { src: "navidrome.j2", dest: "{{ nginx-sites }}/navidrome.nginx"}
+    - { src: "reden.j2", dest: "{{ nginx-sites }}/reden.nginx"}
+    - { src: "searx.j2", dest: "{{ nginx-sites }}/searx.nginx"}
+    - { src: "stickers.j2", dest: "{{ nginx-sites }}/stickers.nginx"}
 
 #Static Websites
 #homepage
@@ -66,6 +65,23 @@
     group: "{{ group }}"
 
 #Docker
+- name: Create homepage folder
+  file:
+    path: "{{ compose_folder }}"
+    state: directory
+
+- name: Create bibliogram folder
+  file:
+    path: "{{ bibliogram-path }}"
+    state: directory
+
+- name: Clone a bibliogram repository
+  git:
+    repo: https://git.sr.ht/~cadence/bibliogram
+    dest: "{{ bibliogram-path }}"
+    clone: yes
+    update: yes
+
 - name: Install the package "docker.io"
   apt:
     name: docker.io
@@ -86,16 +102,6 @@
     name: docker
     state: started
 
-- name: Setup Bibliogram Docker
-  docker_container:
-    name: bibliogram
-    image: cloudrac3r/bibliogram
-    restart: unless-stopped
-    ports:
-      - "10407:10407"
-    volumes:
-      - "db:/app/db"
-
 - name: Create Navidrome Data Folder
   file:
     path: "/home/{{ user }}/navidrome/"
@@ -106,16 +112,13 @@
     path: "/home/{{ user }}/navidrome/music"
     state: directory
 
-- name: Setup Navidrome Docker
-  docker_container:
-    name: navidrome
-    image: deluan/navidrome:latest
-    user: 1000:1000
-    ports:
-      - "4533:4533"
-    restart: unless-stopped
-    ND_BASEURL: "music.{{ domain }}"
-    volumes:
-      - "/home/{{ user }}/navidrome:/data"
-      - "/home/{{ user }}/navidrome/music:/music:ro"
+- name: Deploy Docker-Compose Files
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ user }}"
+    group: "{{ group }}"
+  with_items:
+    - { src: "navidrome-compose.yml.j2", dest: "{{ compose_folder }}/navidrome-compose.yml"}
 
+#run docker-compose up -d in the respective paths (see above and in the vars file for reference)
