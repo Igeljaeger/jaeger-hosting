@@ -13,5 +13,5 @@ services:
       ND_SESSIONTIMEOUT: 24h
       ND_BASEURL: "music.{{ domain }}"
     volumes:
-      - "/home/{{ user }}/navidrome:/data"
+      - "navidrome:/data"
       - "/home/{{ user }}/navidrome/music:/music:ro"
