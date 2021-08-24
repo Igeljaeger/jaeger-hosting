@@ -19,7 +19,7 @@ services:
       # Adding 127.0.0.1 ensures the port isn't exposed ON the host
       - "127.0.0.1:5432:5432"
     volumes:
-     - ~/synapse/postgresql:/var/lib/postgresql/data
+     - /home/{{ user }}/postgresql:/var/lib/postgresql/data
     environment:
      - POSTGRES_PASSWORD=
      - POSTGRES_USER=synapse
@@ -36,7 +36,7 @@ services:
     volumes:
      - /home/{{ user }}/synapse:/data
 
-# Our docker network!
+# Docker network
 networks:
   default:
     external:
