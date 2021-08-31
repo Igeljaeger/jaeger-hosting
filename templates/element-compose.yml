@@ -1,0 +1,9 @@
+version: "3"
+services:
+  navidrome:
+    image: vectorim/element-web
+    container_name: element
+    user: 1000:1000
+    volumes:
+      - {{ element-path }}/config.json:/app/config.json
+

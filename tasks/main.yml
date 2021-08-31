@@ -109,7 +109,7 @@
     owner: "{{ user }}"
     group: "{{ group }}"
   with_items:
-    - { src: "navidrome-compose.yml.j2", dest: "{{ compose_folder }}/navidrome-compose.yml"}
-    - { src: "matrix-compose.yml.j2", dest: "{{ compose_folder }}/matrix-compose.yml"}
+    - { src: "*.yml", dest: "{{ compose_folder }}"}
     - { src: "matrix/*", dest: "{{ synapse-path }}"}
+    - { src: "matrix/config.json", dest: "{{ element-path }}"}
 #run docker-compose up -d in the respective paths (see above and in the vars file for reference)
