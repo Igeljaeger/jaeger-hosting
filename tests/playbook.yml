@@ -4,5 +4,5 @@
   roles:
     - jaeger-hosting
   vars_files:
-    - main.yml
-    - vault.yml
+    - roles/jaeger-hosting/vars/main.yml
+    - roles/jaeger-hosting/vars/vault.yml

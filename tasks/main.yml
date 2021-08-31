@@ -1,21 +1,4 @@
 ---
-#Nginx
-- name: Copy nginx templates
-  template:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-    mode: 0644
-    owner: "root"
-    group: "root"
-  with_items:
-    - { src: "default.j2", dest: "{{ nginx-sites }}/default.nginx"}
-    - { src: "insta.j2", dest: "{{ nginx-sites }}/insta.nginx"}
-    - { src: "matrix.j2", dest: "{{ nginx-sites }}/matrix.nginx"}
-    - { src: "navidrome.j2", dest: "{{ nginx-sites }}/navidrome.nginx"}
-    - { src: "reden.j2", dest: "{{ nginx-sites }}/reden.nginx"}
-    - { src: "searx.j2", dest: "{{ nginx-sites }}/searx.nginx"}
-    - { src: "stickers.j2", dest: "{{ nginx-sites }}/stickers.nginx"}
-
 #Static Websites
 #homepage
 - name: Create homepage folder
@@ -112,4 +95,5 @@
     - { src: "*.yml", dest: "{{ compose_folder }}"}
     - { src: "matrix/*", dest: "{{ synapse-path }}"}
     - { src: "matrix/config.json", dest: "{{ element-path }}"}
+    - { src: "nginx/*.j2", dest: "{{ nginx-sites }}"}
 #run docker-compose up -d in the respective paths (see above and in the vars file for reference)
