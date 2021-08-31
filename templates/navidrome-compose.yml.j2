@@ -8,11 +8,8 @@ services:
       - "4533:4533"
     restart: unless-stopped
     environment:
-      ND_CONFIGFILE: "/data/navidrome.toml"
+      ND_CONFIGFILE: "/data/c.toml"
     volumes:
-      - "/home/{{ user }}/navidrome/data:/data:rw"
-      - "/home/{{ user }}/navidrome/navidrome.toml:/data/navidrome.toml:rw"
-      - "/home/{{ user }}/navidrome/music:/music:ro"
-
-volumes:
-  navidrome:
+      - "{{ navidrome-path }}/data:/data:rw"
+      - "{{ navidrome-path }}/navidrome.toml:/data/navidrome.toml:rw"
+      - "{{ navidrome-path }}/music:/music:ro"

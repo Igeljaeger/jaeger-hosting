@@ -1,10 +1,5 @@
 ---
 #Nginx
-- name: Update repositories cache and install "nginx" package
-  apt:
-    name: nginx
-    update_cache: yes
-
 - name: Copy nginx templates
   template:
     src: "{{ item.src }}"
@@ -75,7 +70,7 @@
     path: "{{ bibliogram-path }}"
     state: directory
 
-- name: Clone a bibliogram repository
+- name: Clone the bibliogram repository
   git:
     repo: https://git.sr.ht/~cadence/bibliogram
     dest: "{{ bibliogram-path }}"
@@ -102,17 +97,12 @@
     name: docker
     state: started
 
-- name: Create Navidrome Data Folder
+- name: Create Navidrome folders
   file:
-    path: "/home/{{ user }}/navidrome/"
+    path: "{{ navidrome-path }}/music"
     state: directory
 
-- name: Create Navidrome Music Folder
-  file:
-    path: "/home/{{ user }}/navidrome/music"
-    state: directory
-
-- name: Deploy Docker-Compose Files
+- name: Copy templates
   template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
@@ -121,4 +111,5 @@
   with_items:
     - { src: "navidrome-compose.yml.j2", dest: "{{ compose_folder }}/navidrome-compose.yml"}
     - { src: "matrix-compose.yml.j2", dest: "{{ compose_folder }}/matrix-compose.yml"}
+    - { src: "matrix/*", dest: "{{ synapse-path }}"}
 #run docker-compose up -d in the respective paths (see above and in the vars file for reference)

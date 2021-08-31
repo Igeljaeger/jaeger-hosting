@@ -2,4 +2,4 @@
 - hosts: localhost
   become: true
   roles:
-    - ../jaeger-hosting-basics
+    - ../jaeger-hosting
