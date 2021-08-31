@@ -8,7 +8,7 @@ services:
       - 443:443
     volumes:
       - /home/{{ user }}/letsencrypt/config/:/config:rw
-      - {{ nginx-sites }}:/config/letsencrypt/nginx/site-confs/:rw
+      - {{ nginxsites }}:/config/letsencrypt/nginx/site-confs/:rw
     environment:
       - EMAIL={{ email }}
       - URL={{ domain }}

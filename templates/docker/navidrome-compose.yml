@@ -10,6 +10,6 @@ services:
     environment:
       ND_CONFIGFILE: "/data/c.toml"
     volumes:
-      - "{{ navidrome-path }}/data:/data:rw"
-      - "{{ navidrome-path }}/navidrome.toml:/data/navidrome.toml:rw"
-      - "{{ navidrome-path }}/music:/music:ro"
+      - "{{ navidromepath }}/data:/data:rw"
+      - "{{ navidromepath }}/navidrome.toml:/data/navidrome.toml:rw"
+      - "{{ navidromepath }}/music:/music:ro"

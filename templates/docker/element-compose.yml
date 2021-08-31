@@ -5,5 +5,5 @@ services:
     container_name: element
     user: 1000:1000
     volumes:
-      - {{ element-path }}/config.json:/app/config.json
+      - {{ elementpath }}/config.json:/app/config.json
 

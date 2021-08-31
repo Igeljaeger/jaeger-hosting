@@ -28,7 +28,7 @@ services:
      #- "8448:8448"
      #- "3478:3478"
     volumes:
-     - {{ synapse-path }}:/data
+     - {{ synapsepath }}:/data
 
 # Docker network
 networks:

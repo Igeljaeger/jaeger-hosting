@@ -3,19 +3,19 @@
 #homepage
 - name: Create homepage folder
   file:
-    path: "{{ homepage-path }}"
+    path: "{{ homepagepath }}"
     state: directory
 
 - name: Clone homepage repository
   git:
     repo: https://github.com/Igeljaeger/igel.jaeger.website.git
-    dest: "{{ homepage-path }}"
+    dest: "{{ homepagepath }}"
     clone: yes
     update: yes
 
 - name: Recursively change ownership of a homepage directory
   ansible.builtin.file:
-    path: "{{ homepage-path }}"
+    path: "{{ homepagepath }}"
     state: directory
     recurse: yes
     owner: "{{ user }}"
@@ -24,19 +24,19 @@
 #Stickers
 - name: Create Stickers Data Folder
   file:
-    path: "{{ stickers-path }}"
+    path: "{{ stickerspath }}"
     state: directory
 
 - name: Clone Stickerpicker repository
   git:
     repo: https://github.com/Igeljaeger/stickerpicker.git
-    dest: "{{ stickers-path }}"
+    dest: "{{ stickerspath }}"
     clone: yes
     update: yes
 
 - name: Recursively change ownership of a Stickers directory
   ansible.builtin.file:
-    path: "{{ stickers-path }}"
+    path: "{{ stickerspath }}"
     state: directory
     recurse: yes
     owner: "{{ user }}"
@@ -45,18 +45,18 @@
 #Docker
 - name: Create homepage folder
   file:
-    path: "{{ compose_folder }}"
+    path: "{{ composepath }}"
     state: directory
 
 - name: Create bibliogram folder
   file:
-    path: "{{ bibliogram-path }}"
+    path: "{{ bibliogrampath }}"
     state: directory
 
 - name: Clone the bibliogram repository
   git:
     repo: https://git.sr.ht/~cadence/bibliogram
-    dest: "{{ bibliogram-path }}"
+    dest: "{{ bibliogrampath }}"
     clone: yes
     update: yes
 
@@ -70,19 +70,9 @@
     name: docker-compose
     state: present
 
-- name: Enable docker service
-  ansible.builtin.service:
-    name: docker
-    enabled: yes
-
-- name: Start docker service, if not started
-  ansible.builtin.service:
-    name: docker
-    state: started
-
 - name: Create Navidrome folders
   file:
-    path: "{{ navidrome-path }}/music"
+    path: "{{ navidromepath }}/music"
     state: directory
 
 - name: Copy templates
@@ -92,8 +82,14 @@
     owner: "{{ user }}"
     group: "{{ group }}"
   with_items:
-    - { src: "*.yml", dest: "{{ compose_folder }}"}
-    - { src: "matrix/*", dest: "{{ synapse-path }}"}
-    - { src: "matrix/config.json", dest: "{{ element-path }}"}
-    - { src: "nginx/*.j2", dest: "{{ nginx-sites }}"}
+    - { src: "matrix/config.json", dest: "{{ elementpath }}"}
+
+- name: Sync template folders
+  synchronize:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - { src: "{{ templatespath }}/docker", dest: "{{ composepath }}" }
+    - { src: "{{ templatespath }}/matrix", dest: "{{ synapsepath }}" }
+    - { src: "{{ templatespath }}/nginx", dest: "{{ nginxsites }}" }
 #run docker-compose up -d in the respective paths (see above and in the vars file for reference)
