@@ -1,4 +1,4 @@
-My stuff, but maybe also your stuff soon.\
+My stuff, but maybe also your stuff soon.
 
 - create a "roles" folder
 - clone this repo into it
