@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  become: true
+  roles:
+    - jaeger-hosting
+  vars_files:
+    - main.yml
+    - vault.yml

@@ -1,12 +1,5 @@
-# https://jonnev.se/matrix-homeserver-with-docker/
-# https://adfinis.com/en/blog/how-to-set-up-your-own-matrix-org-homeserver-with-federation/
-# https://zerowidthjoiner.net/2020/03/20/setting-up-matrix-and-riot-with-docker
-# https://tech.davidfield.co.uk/setting-up-your-own-riot-im-server/
-# https://matrix.org/blog/2016/02/10/advanced-synapse-setup-with-lets-encrypt
-
 version: "3"
 services:
-
   postgres:
     image: postgres
     restart: always
@@ -21,8 +14,9 @@ services:
     volumes:
      - /home/{{ user }}/postgresql:/var/lib/postgresql/data
     environment:
-     - POSTGRES_PASSWORD=
+     - POSTGRES_PASSWORD={{ POSTGRES_PASSWORD }}
      - POSTGRES_USER=synapse
+#ansible-vault encrypt_string 'password' --name 'POSTGRES_PASSWORD'
 
   synapse:
     image: matrixdotorg/synapse
@@ -34,8 +28,7 @@ services:
      #- "8448:8448"
      #- "3478:3478"
     volumes:
-     - {{ synapse-path }}/data:/data
-     - {{ synapse-path }}/
+     - {{ synapse-path }}:/data
 
 # Docker network
 networks:
