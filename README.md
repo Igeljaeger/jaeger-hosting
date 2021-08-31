@@ -5,5 +5,5 @@ This project might help out people that try to do something similar, or at least
 - create a "roles" folder
 - clone this repo into it
 - copy the contents of the "tests" folder before roles
-- supply the vault.yml with your own passwords: `ansible-vault encrypt_string 'your-password' --name 'POSTGRES_PASSWORD'`
+- supply vars/vault.yml with your own passwords: `ansible-vault encrypt_string 'your-password' --name 'POSTGRES_PASSWORD'`
 - run `ansible-playbook playbook.yml`
