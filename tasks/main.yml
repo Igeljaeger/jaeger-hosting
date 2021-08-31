@@ -89,6 +89,7 @@
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
   with_items:
+    - { src: "{{ templatespath }}/bash", dest: "/home/{{ user }}/scripts" }
     - { src: "{{ templatespath }}/docker", dest: "{{ composepath }}" }
     - { src: "{{ templatespath }}/matrix", dest: "{{ synapsepath }}" }
     - { src: "{{ templatespath }}/nginx", dest: "{{ nginxsites }}" }
