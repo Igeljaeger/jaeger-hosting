@@ -13,7 +13,7 @@
     clone: yes
     update: yes
 
-- name: Recursively change ownership of a homepage directory
+- name: Recursively change ownership of homepage directory
   ansible.builtin.file:
     path: "{{ homepagepath }}"
     state: directory
@@ -43,20 +43,29 @@
     group: "{{ group }}"
 
 #Docker
-- name: Create homepage folder
+- name: Create docker folder
   file:
     path: "{{ composepath }}"
-    state: directory
-
-- name: Create bibliogram folder
-  file:
-    path: "{{ bibliogrampath }}"
     state: directory
 
 - name: Clone the bibliogram repository
   git:
     repo: https://git.sr.ht/~cadence/bibliogram
     dest: "{{ bibliogrampath }}"
+    clone: yes
+    update: yes
+
+- name: Clone the searx repository
+  git:
+    repo: https://github.com/searx/searx-docker.git
+    dest: "{{ searxpath }}"
+    clone: yes
+    update: yes
+
+- name: Clone the hemppa matrix bot repository
+  git:
+    repo: https://github.com/vranki/hemppa.git
+    dest: "{{ synapsepath }}"
     clone: yes
     update: yes
 
