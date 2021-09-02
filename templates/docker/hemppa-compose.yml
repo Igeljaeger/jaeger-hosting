@@ -11,7 +11,7 @@ services:
       - MATRIX_USER=@hemppabot:"{{ domain }}"
       - MATRIX_SERVER=https://"{{ domain }}"
       - JOIN_ON_INVITE=True
-      - BOT_OWNERS=@igel:jaeger.website
+      - BOT_OWNERS=@"{{ nickname }}":"{{ domain }}"
       - DEBUG=False
       - TZ=Europe/Berlin
     volumes:
