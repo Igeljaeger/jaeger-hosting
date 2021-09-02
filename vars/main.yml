@@ -1,5 +1,6 @@
 email: "igeljaeger@pm.me"
 templatespath: "roles/jaeger-hosting/templates/"
+nickname: "igel"
 user: "pi"
 group: "pi"
 composepath: "/home/{{ user }}/docker-files"
