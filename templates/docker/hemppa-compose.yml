@@ -15,8 +15,8 @@ services:
       - DEBUG=False
       - TZ=Europe/Berlin
     volumes:
-      - ${PWD}/config/:/bot/config
-      - ${PWD}/credentials.json:/bot/credentials.json
-      - ${PWD}/token.pickle:/bot/token.pickle
+      - "{{ hemppapath }}"/config/:/bot/config
+      - "{{ hemppapath }}"/credentials.json:/bot/credentials.json
+      - "{{ hemppapath }}"/token.pickle:/bot/token.pickle
 
     stop_signal: SIGINT
