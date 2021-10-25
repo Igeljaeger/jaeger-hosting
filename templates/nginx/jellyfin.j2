@@ -1,16 +1,16 @@
 server {
     listen 80; 
     listen [::]:80; 
-    server_name jellyfin.jaeger.website; # [1]
+    server_name jellyfin.{{ domain }}; # [1]
     return 301 https://$host$request_uri;
 }
 
 server {
     listen 443 ssl http2; 
     listen [::]:443 ssl http2; 
-    server_name jellyfin.jaeger.website;
-    ssl_certificate /etc/letsencrypt/live/jellyfin.jaeger.website/fullchain.pem; # [3]
-    ssl_certificate_key /etc/letsencrypt/live/jellyfin.jaeger.website/privkey.pem; # [3]
+    server_name jellyfin.{{ domain }};
+    ssl_certificate /etc/letsencrypt/live/jellyfin.{{ domain }}/fullchain.pem; # [3]
+    ssl_certificate_key /etc/letsencrypt/live/jellyfin.{{ domain }}/privkey.pem; # [3]
     ssl_session_timeout 1d; 
     ssl_session_tickets off;
     ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384; 
