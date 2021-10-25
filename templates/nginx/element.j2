@@ -3,21 +3,18 @@ server {
         root /var/www/reden/;
         index index.html index.htm index.nginx-debian.html;
 
-        server_name reden.jaeger.website;
+        server_name reden.{{ domain }};
 
         location / {
                 try_files $uri $uri/ =404;
         }
 
     listen 443 ssl; # managed by Certbot
-    ssl_certificate /etc/letsencrypt/live/reden.jaeger.website/fullchain.pem; # managed by Certbot
-    ssl_certificate_key /etc/letsencrypt/live/reden.jaeger.website/privkey.pem; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/reden.{{ domain }}/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/reden.{{ domain }}/privkey.pem; # managed by Certbot
     include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 
-location /telefonieren {
-                try_files $uri $uri/ =404;
-        }
     location /ws {
                 proxy_pass http://localhost:9998/ws; # This points to the websocket served by picotalk-server.
                 proxy_http_version 1.1;
@@ -28,14 +25,14 @@ location /telefonieren {
 
 }
 server {
-    if ($host = reden.jaeger.website) {
+    if ($host = reden.{{ domain }}) {
         return 301 https://$host$request_uri;
     } 
 
 
         listen 80;
 
-        server_name reden.jaeger.website;
+        server_name reden.{{ domain }};
     return 404; 
 
 
