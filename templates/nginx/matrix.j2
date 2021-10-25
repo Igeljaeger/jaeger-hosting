@@ -6,13 +6,13 @@ server {
     listen 8448 ssl http2;
     listen [::]:8448 ssl http2;
 
-    server_name jaeger.website;
+    server_name {{ domain }};
 
-        ssl_certificate /etc/letsencrypt/live/jaeger.website/fullchain.pem;
-        ssl_certificate_key /etc/letsencrypt/live/jaeger.website/privkey.pem;
+        ssl_certificate /etc/letsencrypt/live/{{ domain }}/fullchain.pem;
+        ssl_certificate_key /etc/letsencrypt/live/{{ domain }}/privkey.pem;
 
 location / {
-        rewrite ^/(.*)$ https://igel.jaeger.website/$1 redirect;
+        rewrite ^/(.*)$ https://igel.{{ domain }}/$1 redirect;
     }
 
     location ~* ^(\/_matrix|\/_synapse\/client) {
@@ -27,7 +27,7 @@ location / {
     }
 location /.well-known/matrix/server {
       default_type application/json;
-      return 200 '{ "m.server": "jaeger.website:443" }';
+      return 200 '{ "m.server": "{{ domain }}:443" }';
    }
 
 }
