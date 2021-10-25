@@ -1,0 +1,19 @@
+version: "3.5"
+services:
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    container_name: jellyfin
+    user: 1000:1000
+    network_mode: "host"
+    volumes:
+      - jellyfin-config:/config
+      - jellyfin-cache:/cache
+      - /home/pi/jellyfin/media:/media
+      - /home/pi/navidrome/music:/music:ro
+    restart: "unless-stopped"
+    # Optional - alternative address used for autodiscovery
+#    environment:
+#      - JELLYFIN_PublishedServerUrl=http://jellyfin.jaeger.website
+volumes:
+  jellyfin-config:  
+  jellyfin-cache:
