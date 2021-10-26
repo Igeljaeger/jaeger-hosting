@@ -8,12 +8,12 @@ services:
     volumes:
       - jellyfin-config:/config
       - jellyfin-cache:/cache
-      - /home/pi/jellyfin/media:/media
-      - /home/pi/navidrome/music:/music:ro
+      - {{ jellyfinpath }}/media:/media
+      - {{ navidromepath }}/music:/music:ro
     restart: "unless-stopped"
     # Optional - alternative address used for autodiscovery
 #    environment:
-#      - JELLYFIN_PublishedServerUrl=http://jellyfin.jaeger.website
+#      - JELLYFIN_PublishedServerUrl=http://jellyfin.{{ domain }}
 volumes:
   jellyfin-config:  
   jellyfin-cache:
