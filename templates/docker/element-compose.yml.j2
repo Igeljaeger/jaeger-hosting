@@ -1,9 +1,9 @@
+#NOTICE: DOES NOT SUPPORT ARM. ONLY AMD64!
 version: "3"
 services:
-  navidrome:
-    image: vectorim/element-web
-    container_name: element
-    user: 1000:1000
+  element-web:
+    image: vectorim/element-web:latest
+    container_name: element-web
     volumes:
       - {{ elementpath }}/config.json:/app/config.json
 
