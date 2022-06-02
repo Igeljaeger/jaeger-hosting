@@ -78,28 +78,39 @@
   apt:
     name: docker-compose
     state: present
+    
+- name: Install the package "nginx"
+  apt:
+    name: nginx
+    state: present
 
 - name: Create Navidrome folders
   file:
     path: "{{ navidromepath }}/music"
     state: directory
 
-- name: Copy templates
   template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     owner: "{{ user }}"
     group: "{{ group }}"
   with_items:
-    - { src: "matrix/config.json", dest: "{{ elementpath }}"}
+    - { src: "matrix/config.json", dest: "{{ elementpath }}/config.json"}
+    - { src: "docker/element-compose.yml.j2", dest: "{{ composepath }}/element/docker-compose.yml"}
+    - { src: "docker/hemppa-compose.yml.j2", dest: "{{ composepath }}/hemppa/docker-compose.yml"}
+    - { src: "docker/jellyfin-compose.yml.j2", dest: "{{ composepath }}/jellyfin/docker-compose.yml"}
+    - { src: "docker/matrix-compose.yml.j2", dest: "{{ composepath }}/matrix/docker-compose.yml"}
+    - { src: "docker/navidrome-compose.yml.j2", dest: "{{ composepath }}/navidrome/docker-compose.yml"}
+    - { src: "docker/nginx-compose.yml.j2", dest: "{{ composepath }}/nginx/docker-compose.yml"}
+    - { src: "docker/sync-compose.yml.j2", dest: "{{ composepath }}/sync/docker-compose.yml"}
 
 - name: Sync template folders
   synchronize:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
   with_items:
-    - { src: "{{ templatespath }}/bash", dest: "/home/{{ user }}/scripts" }
-    - { src: "{{ templatespath }}/docker", dest: "{{ composepath }}" }
-    - { src: "{{ templatespath }}/matrix", dest: "{{ synapsepath }}" }
-    - { src: "{{ templatespath }}/nginx", dest: "{{ nginxsites }}" }
+    - { src: "{{ templatespath }}bash", dest: "/home/{{ user }}/scripts" }
+    - { src: "{{ templatespath }}docker", dest: "{{ composepath }}" }
+    - { src: "{{ templatespath }}matrix", dest: "{{ synapsepath }}" }
+    - { src: "{{ templatespath }}nginx", dest: "{{ nginxsites }}" }
 #run docker-compose up -d in the respective paths (see above and in the vars file for reference)
