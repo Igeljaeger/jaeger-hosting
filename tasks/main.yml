@@ -8,7 +8,7 @@
 
 - name: Clone homepage repository
   git:
-    repo: https://github.com/Igeljaeger/igel.jaeger.website.git
+    repo: https://{{ github_token }}@github.com/Igeljaeger/igel.jaeger.website.git
     dest: "{{ homepagepath }}"
     clone: yes
     update: yes
@@ -43,10 +43,6 @@
     group: "{{ group }}"
 
 #Docker
-- name: Create docker folder
-  file:
-    path: "{{ composepath }}"
-    state: directory
 
 - name: Clone the bibliogram repository
   git:
@@ -84,11 +80,34 @@
     name: nginx
     state: present
 
-- name: Create Navidrome folders
+- name: Create directories
   file:
-    path: "{{ navidromepath }}/music"
+    path: "{{ item.dest }}"
+    recurse: true   
     state: directory
+  loop:
+    - { dest: "{{ composepath }}"}
+    - { dest: "{{ navidromepath }}/music"}
+    - { dest: "{{ elementpath }}"}
+    - { dest: "{{ composepath }}/element/"}
+    - { dest: "{{ composepath }}/hemppa/"}
+    - { dest: "{{ composepath }}/jellyfin/"}
+    - { dest: "{{ composepath }}/matrix/"}
+    - { dest: "{{ composepath }}/navidrome/"}
+    - { dest: "{{ composepath }}/nginx/"}
+    - { dest: "{{ composepath }}/sync/"}
 
+- name: Sync template folders
+  synchronize:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - { src: "{{ templatespath }}bash", dest: "/home/{{ user }}/scripts" }
+    - { src: "{{ templatespath }}docker", dest: "{{ composepath }}" }
+    - { src: "{{ templatespath }}matrix", dest: "{{ synapsepath }}" }
+    - { src: "{{ templatespath }}nginx", dest: "{{ nginxsites }}" }
+
+- name: templates
   template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
@@ -104,13 +123,4 @@
     - { src: "docker/nginx-compose.yml.j2", dest: "{{ composepath }}/nginx/docker-compose.yml"}
     - { src: "docker/sync-compose.yml.j2", dest: "{{ composepath }}/sync/docker-compose.yml"}
 
-- name: Sync template folders
-  synchronize:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-  with_items:
-    - { src: "{{ templatespath }}bash", dest: "/home/{{ user }}/scripts" }
-    - { src: "{{ templatespath }}docker", dest: "{{ composepath }}" }
-    - { src: "{{ templatespath }}matrix", dest: "{{ synapsepath }}" }
-    - { src: "{{ templatespath }}nginx", dest: "{{ nginxsites }}" }
 #run docker-compose up -d in the respective paths (see above and in the vars file for reference)
